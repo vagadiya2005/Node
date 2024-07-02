@@ -1,16 +1,15 @@
 const express = require('express');
+const path = require('path');
 
 const app = express();
 
-// basic rout setup
-app.get('/hello',(req,res)=>{
+// select public folder
+const abouPath = path.join(__dirname,'public');
+ 
+// send respons in form of html page
+app.use(express.static(abouPath)); // here abouPath is a folder path.
+// app.use(express.static('public'));  Here express.static load static pages.
 
-        // query send by client in request
-    console.log('data sending by client ---->',req.query);
-    
-    res.send('hello everyone again');
 
-})
-
-// app.get('/hello',(req,res)=>{  listen request at port number 5500
-app.listen(5500);
+// send html page which present in public folder localhost:port/ex.html
+app.listen(5500);   
