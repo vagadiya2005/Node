@@ -1,9 +1,12 @@
+const { profile } = require('console');
 const express = require('express');
 const path = require('path');
 
 const app = express();
 
 const htmlPath = path.join(__dirname,'public');
+
+app.set('view engine','ejs');
 
 
 app.get('',(req,res)=>{
@@ -17,6 +20,20 @@ app.get('/about',(req,res)=>{
 res.sendFile(`${htmlPath}/about.html`);
 
 })
+
+
+app.get('/profile',(req,res)=>{
+
+    const user={  // create user in json format.
+        name:'John Doe',
+        age:30,
+        profession:'Web Developer'
+        }
+
+        res.render('profile',{user}); // use ejs and send user to webpage
+    
+    })
+    
 
 app.get('/help',(req,res)=>{
 
