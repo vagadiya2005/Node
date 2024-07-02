@@ -23,12 +23,14 @@ res.sendFile(`${htmlPath}/about.html`);
 })
 
 
+
 app.get('/profile',(req,res)=>{
 
     const user={  // create user in json format.
         name:'John Doe',
         age:30,
-        profession:'Web Developer'
+        profession:'Web Developer',
+        skill: ['react','php','Django']
         }
 
         res.render('profile',{user}); // use ejs and send user to webpage
