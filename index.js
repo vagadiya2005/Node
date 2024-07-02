@@ -6,6 +6,7 @@ const app = express();
 
 const htmlPath = path.join(__dirname,'public');
 
+// set 'ejs' as a template engine.
 app.set('view engine','ejs');
 
 
