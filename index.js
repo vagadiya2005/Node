@@ -1,57 +1,22 @@
-const { profile } = require('console');
 const express = require('express');
-const path = require('path');
+const reqFilter = require('./views/middelware')
 
 const app = express();
 
-const htmlPath = path.join(__dirname,'public');
 
-// set 'ejs' as a template engine.
-app.set('view engine','ejs');
-
+// app.use(reqFilter); // application middelware it's working in all routes.
 
 app.get('',(req,res)=>{
 
-res.sendFile(`${htmlPath}/index.html`);
+        res.send('Welcom to Home Page ');
 
 })
 
-app.get('/about',(req,res)=>{
+// here reqFilter is a route level middelware it's apply in specefic routes.
+app.get('/about',reqFilter,(req,res)=>{
 
-res.sendFile(`${htmlPath}/about.html`);
-
-})
-
-
-
-app.get('/profile',(req,res)=>{
-
-    const user={  // create user in json format.
-        name:'John Doe',
-        age:30,
-        profession:'Web Developer',
-        skill: ['react','php','Django']
-        }
-
-        res.render('profile',{user}); // use ejs and send user to webpage
-    
-    })
-    
-
-app.get('/help',(req,res)=>{
-
-    setTimeout(() => {
-       res.sendFile(`${htmlPath}/help.html`);
-    }, 4000);
-
-});
-
-
-
-app.get('*',(req,res)=>{
-
-res.sendFile(`${htmlPath}/page404.html`);
+    res.send('Welcom to About Page');
 
 })
 
-app.listen(5500);
+app.listen(1000);

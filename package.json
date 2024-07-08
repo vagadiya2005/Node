@@ -11,6 +11,7 @@
   "dependencies": {
     "ejs": "^3.1.10",
     "express": "^4.19.2",
+    "express-middleware": "^3.4.2",
     "http": "^0.0.1-security",
     "nodemon": "^3.1.4"
   }
