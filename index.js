@@ -1,33 +1,35 @@
-const express = require('express');
-const reqFilter = require('./views/middelware');
-const { Route } = require('express');
-const app = express();
-const route = express.Router();
+const { MongoClient } = require("mongodb");
+const url =
+  "mongodb+srv://23ce140:cxFGrQJU8OeTCXVG@cluster0.paezpii.mongodb.net/";
 
+const client = new MongoClient(url);
 
-route.use(reqFilter);
-// app.use(reqFilter); // application middelware it's working in all routes.
+const dataBaseName = "example";  // intialize database name
 
-route.get('/',(req,res)=>{
+async function getData() {   
+  let result = await client.connect();  // try to connect mongoDb server
+  console.log("Connected successfully to server");
+  let db = result.db(dataBaseName);  // select database
+  let collection = db.collection("data"); // select collecyion of our database
 
-        res.send('Welcom to Home Page ');
+  let data = {   // create data for inserting data in collection of database
+    name: "prince vagadiya",
+    village: "ratang",
+    collage: "charusat",
+  };
+  let multipleData = [    // create multiple data like array of data to insert multiple record at a single time
+    { name: "Alice", age: 25, address: "456 Elm St" },  // each record will seprated by ','
+    { name: "Bob", age: 22, address: "789 Oak St" },
+  ];
 
-})
+  let insertdata = await collection.insertOne(data);  // insert single record
 
-// here reqFilter is a route level middelware it's apply in specefic routes.
-app.get('/about',reqFilter,(req,res)=>{
+  console.log(`insert data at id : ${insertdata.insertedId}`);  // get insert ID of record 
 
-    res.send('Welcom to About Page');
+  let insermultipledata = await collection.insertMany(multipleData); // insert multiple data
 
-})
+  let response = await collection.find({}).toArray();  // print all data from collection in form of array 
+  console.log(response);  
+}
 
-
-route.get('/help',(req,res)=>{
-
-    res.send('Welcom to Help Page');
-
-})
-
-app.use('/',route);
-
-app.listen(1000);
+getData();  // calling function to execute all of this things
