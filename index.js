@@ -19,7 +19,7 @@ console.log(data);
 
 app.get('/',async(req,res)=>{  // GET API
 
-  const products = await Product.find({name: 'M 34'}); // get data from DB or find specefic data.
+  const products = await Product.find(); // get data from DB or find specefic data.
   res.send(products);
   console.log(products);
 
@@ -45,6 +45,24 @@ app.delete('/',async(req,res)=>{ // DELETE API
   res.send(data);
   console.log(data);
 
+});
+
+
+app.get('/search/:key',async(req,res)=>{   // Search API
+
+let data = await Product.find({
+
+"$or":[  // $or  for multiple thread search means search key multiple fileds.
+
+      {"name":{$regex:req.params.key}},
+      {"brand":{$regex:req.params.key}}
+
+]
+
+});
+
+res.send(data);
+console.log(data);
 
 
 });
