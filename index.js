@@ -1,71 +1,64 @@
-const express = require("express");
+// const express = require("express");
+// const multer = require("multer");
+// const path = require('path');
 
-require("./config");
-const Product = require("./product");
+// const app = express();
 
-const app = express();
-
-app.use(express.json());
-
-
-app.post('/',async(req,res)=>{  // POST API
-
-const data = await Product.insertMany(req.body);
-res.send(data);
-console.log(data);
-
-
-});
-
-app.get('/',async(req,res)=>{  // GET API
-
-  const products = await Product.find(); // get data from DB or find specefic data.
-  res.send(products);
-  console.log(products);
-
-});
-
-app.put('/',async(req,res)=>{  // PUT API
-
-  const data = await Product.updateOne(  // as well as use .updateMany().
-
-    {name: 'M 34'},
-    {$set: {name: 'S 22'}}
-
-  )
-
-  res.send(data);
-  console.log(data);
-
-});
-
-app.delete('/',async(req,res)=>{ // DELETE API
-
-  const data = await Product.deleteOne(req.body);
-  res.send(data);
-  console.log(data);
-
-});
+// const upload = multer({
+//   storage: multer.diskStorage({
+//     destination: function (req, file, cb) {
+//       cb(null, './uploads/');
+//     },
+//     filename: function (req, file, cb) {
+//       cb(null, Date.now() + path.extname(file.originalname));
+//     },
+//   }),
+// }).single('firstfile');
 
 
-app.get('/search/:key',async(req,res)=>{   // Search API
 
-let data = await Product.find({
+// app.post("/upload", upload,(req, res) => {
+//   res.send("file uploaded");
+//   console.log('File uploaded:', req.file);
+// });
 
-"$or":[  // $or  for multiple thread search means search key multiple fileds.
+// app.listen(5600);
 
-      {"name":{$regex:req.params.key}},
-      {"brand":{$regex:req.params.key}}
+// const express = require('express');
+// const multer = require('multer');
 
-]
-
-});
-
-res.send(data);
-console.log(data);
+// const app=express();
 
 
-});
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, '/tmp/my-uploads')
+//   },
+//   filename: function (req, file, cb) {
+//     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+//     cb(null, file.fieldname + '-' + uniqueSuffix)
+//   }
+// })
+
+// const upload = multer({ storage: storage })
 
 
-app.listen(5600);
+// app.post('/upload',upload.single('file'),(req,res)=>{
+
+// res.send('file uploaded');
+// console.log('File uploaded:', req.file);
+
+// })
+
+
+// app.listen(5600);
+
+const os = require('os');
+
+console.log(os.arch());  //  give Architecturet of our system like   x32  or  x64.
+console.log(os.freemem()); // free memory in bytes.  
+console.log(os.hostname());  // hostname of system.
+console.log(os.platform());  // win32
+console.log(os.userInfo());
+
+
