@@ -19,8 +19,8 @@ exports.addProduct = async (req, res) => {
 
 exports.getProductsByCategory = async (req, res) => {
     try {
-        const { category } = req.params;
-        let products = await Product.find({ Tag: category });  // Changed to 'Tag' to match the schema
+        // const { category } = req.params;
+        let products = await Product.find();  // Changed to 'Tag' to match the schema
         if (products.length > 0) {
             res.send(products);
         } else {
